@@ -1,0 +1,76 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+\setlength{\parindent}{0pt}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Online Algorithms Exercise 1}
+\author{Golan Shabi 208944355}
+
+\begin{document}
+
+\maketitle
+\section{Part a}
+w.l.o.g assume that $\lambda = OPT$ is $1$, otherwise we can normalize it.\\
+We will use the algorithm $A$ which operates in the following way:\\
+given some $i$ we denote $w^p_e=a^{h_e+p}-a^{h_e}$. And the algorithm will choose $Q_i$ or $R_i$ according to $\min(\sum_{e|e\in Q_i}w_e^{q_i}, \sum_{e|e\in R_i}w_e^{r_i})$.\\
+Now denote $P_i$ the choice $A$ made in iteration $i$ and the same for $OPT$ with $P_i^*$  from the definition we know that:
+\begin{gather*}
+    \sum_{e\in P_i} a^{h^i_e+p_i} - a^{h^i_e} \leq
+    \sum_{e\in P^*_i} a^{h^i_e+p^*_i} - a^{h^i_e} =
+    \sum_{e\in P^*_i} a^{h^i_e}(a^{p^*_i}-1) \leq
+    \sum_{e\in P^*_i} a^{\ell_e}(a-1)p^*_i
+\end{gather*}
+Now summing over all $i$ we get that:
+\begin{gather*}
+    \sum_i\sum_{e\in P_i} a^{h^i_e+p_i} - a^{h^i_e} \leq
+    \sum_i\sum_{e\in P^*_i} a^{\ell_e}(a-1)p^*_i
+\end{gather*}
+and changing the order of the summation:
+\begin{gather*}
+    \sum_{e\in E}a^{\ell_e} - a^0 =
+    \sum_{e\in E}\sum_{i|e\in P_i} a^{h^i_e+p_i} - a^{h^i_e} \leq
+    (a-1)\sum_{e\in E}a^{\ell_e}\sum_{i|e\in P^*_i} p^*_i =
+    (a-1)\sum_{e\in E}a^{\ell_e}
+\end{gather*}
+And now we get that:
+\begin{gather*}
+    (2-a)\sum_{e\in E}a^{\ell_e}\leq |E|\iff\\
+    \sum_{e\in E}a^{\ell_e}\leq \frac{|E|}{(2-a)}
+\end{gather*}
+which implies that if we denote $\max(\sum_{e\in E}a^{\ell_e})=a^{{\ell_{e'}}}$ then $a^{\ell_{e'}}\leq \frac{|E|}{(2-a)}$ and using $a=0.5$ and taking $\log$ on both sides we get $\log(e^{\ell_{e'}})\leq \log(2|E|)$ which implies $O(e^{\ell_{e'}}) = O(\log(|E|))$ as requested.
+\pagebreak
+\section{Part b}
+w.l.o.g assume that $\lambda = OPT$ is $1$, otherwise we can normalize it.\\
+We will use the following algorithm.\\
+given some $i$ we denote $w^{p_i,x_i,i}_e=a^{h_e+x_ip_i+(1-x_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k})}-a^{h_e}$ where $x_i\in\{0,1\}$ and $\beta_{i_j}$ are all the indexes $q< n< i$  where $q$ is the last time we chose a path with $e$, meaning sum of all betas since we took since the last time we added anything to that edge. And the algorithm will choose $Q_i,R_i$ or reject according to $\min(\sum_{e|e\in Q_i}w_e^{q_i,1,i}, \sum_{e|e\in Q_i}w_e^{q_i,0,i}, \sum_{e|e\in P_i}w_e^{p_i,1,i}), \sum_{e|e\in P_i}w_e^{p_i,0,i})$.\\
+Now denote $x^*_i$ and $P^*_i$ the choices $OPT$ made from the way we defined it we get:
+\begin{gather*}
+    \sum_{e\in P_i} a^{h^i_e+(x_ip_i+(1-x_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k}))} - a^{h^i_e} \leq \\
+    \sum_{e\in P^*_i} a^{h^i_e+(x^*_ip^*_i+(1-x^*_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k}))} - a^{h^i_e} =\\
+    \sum_{e\in P^*_i} a^{h^i_e}(a^{x^*_ip^*_i+(1-x^*_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k}))}-1) \leq\\
+    \sum_{e\in P^*_i} a^{\ell_e}(a-1)(x^*_ip^*_i+(1-x^*_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k}))
+\end{gather*}
+Note that the last inequality is true because $\lambda=1$.
+Now summing over all $i$ for the left part and replacing order of summation like in class we get:
+\begin{gather*}
+    \sum_i\sum_{e\in P_i} a^{h^i_e+(x_ip_i+(1-x_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k})} - a^{h^i_e}=\sum_{e\in E}a^{\ell_e} - a^0
+\end{gather*}
+Where $\ell_e=\sum_{i|e\in P_i}x_ip_i+(1-x_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k})$.\\
+And for the right part:
+\begin{gather*}
+    \sum_i\sum_{e\in P^*_i} a^{\ell_e}(a-1)(x^*_ip^*_i+(1-x^*_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k})) =\\
+    (a-1)\sum_{e\in E}a^{\ell_e}\sum_{i|e\in P^*_i} (x^*_ip^*_i+(1-x^*_i)(\beta_i+\beta_{i_1}+\dots+\beta_{i_k})) \leq\\
+    (a-1)\sum_{e\in E}a^{\ell_e}
+\end{gather*}
+From here, we get same expression on both sides as we saw in class, and were done, as requested.
+\end{document}

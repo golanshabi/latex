@@ -1,0 +1,43 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+\setlength{\parindent}{0pt}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Online Algorithms Exercise 1}
+\author{Golan Shabi 208944355}
+
+\begin{document}
+
+\maketitle
+\section{Part a}
+We will use the following algorithm:
+We pick $\min(w_i,p_i)$ (w.l.o.g its $w_i$) and then pick the minimal working machine from $S_i$ (or from $S_i^c$ if we picked $p_i$).\\
+We will prove this is $3-\frac{2}{m}$ competitive.\\
+We will use the same denotes for $w$ in the lecture. As for $h$ it will be defined in the same way but \textbf{only} in the machines that have any work as in this algorithm we won't necessarily give work to all machines.\\
+Now note that $OPT\geq\frac{h}{2} + \frac{w}{m}$. This is since we use only the minimal tasks, so $OPT$ will have to divide at least as much volume. Moreover the algorithm will use at least half of the machines in the worst case (when $m>\frac{m}{2}$ obviously). So from conservation of volume and the usage of our machines we get that statement.\\
+Now note that obviously $OPT\geq w$. Now we get:
+\begin{gather*}
+    ON = h+w = h+\frac{2w}{m} + (1-\frac{2}{m})w = 2(\frac{h}{2}+\frac{w}{m}) + (1-\frac{2}{m})w \leq\\
+    2OPT + (1-\frac{2}{m})OPT = (3-\frac{2}{m})OPT
+\end{gather*}
+as requested
+\pagebreak
+\section{Part b}
+We will use the following:
+First we will decide $w_1,p_1\dots w_{\frac{m}{2}},p_{\frac{m}{2}}$ will all equal 1 and  $S_1\dots S_{\frac{m}{2}}=(1\dots \frac{m}{2})$. w.l.o.g $ALG$ will choose $i$ for the $i'th$ turn up to $\frac{m}{2}$.\\
+Note that if $ALG$ will choose the same machine twice we're done, since we can finish with $1$ while $ALG$ has $2$.\\
+Now $OPT'$ will choose $m$ for the first turn and $i$ for every other turn until $\frac{m}{2}$.\\
+Now in the $\frac{m}{2} + 1$ turn, we will do the following:
+Choose $S_{\frac{m}{2} + 1} = \{1,\dots,\frac{m}{2}\}$. And $w_{\frac{m}{2} + 1} = 1$ $p_{\frac{m}{2} + 1}=2$.\\
+Note that it doesn't matter what $ALG$ will choose it'll end up with at least 2 in the worst machine (either 1 in $1,\dots,\frac{m}{2}$ or $2$ in $\frac{m}{2}+1,\dots,m$), on the other hand, $OPT'$ has 1 in machines $2,\dots,\frac{m}{2},m$  and 0 in the rest, so it can choose machine 1 to take the task and end up with $1$ work while $ALG$ has 2, which puts us at 2-competitiveness for $ALG$ as requested.
+\end{document}

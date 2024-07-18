@@ -1,0 +1,56 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+\setlength{\parindent}{0pt}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Online Algorithms Exercise 1}
+\author{Golan Shabi 208944355}
+
+\begin{document}
+
+\maketitle
+\section{Part a}
+
+The water level algorithm will be defined in the following way:\\
+given a task $T$ the algorithm will assign it in a way such that $\min_{s_i\in S_i}(s_i+T_i)$ is maximized where $s_i$ is both the current work and the machine and $T_i$ is the amount of the task handed to $s_i$.\\
+We will use a similar proof to the one in class. \\
+define $\lambda=OPT(\sigma)$\\
+$l_j=\sum_{i|G(i)=j}w_i$\\
+$R_i$ is the volume above height $\lambda_i$.\\
+Similar to class we will prove that $R_{i+1}\leq \frac{1}{2}R_i$. \\
+Suppose that for some $L\geq \lambda$ there is volume $k\lambda$ above it. Show that above height $L-\lambda$ there is volume $2k\lambda$. Note that w.l.o.g we can assume that no jobs go over $L$ since we can split the jobs in any way we'd like.\\
+At height $L$ and below $OPT$ must assign the load to at least $\lceil k \rceil$ machines. Every job at height $L$ starts at height $\geq L-\lambda$ therefore each of the $k$ machines of $OPT$ is loaded at least $L-\lambda$. So between height $L$ and $L-\lambda$ there is at least $k\lambda$ load.\\
+We get $\lceil\log(m)\rceil+1\leq\log(m)+2$ 
+\pagebreak
+\section{Part b}
+Assume we have some algorithm $A$.\\
+We will build a sequence where $OPT=1$ while $A=1+\frac{1}{2} +\dots+\frac{1}{m}$.\\
+In the first iteration $S_1=[1,m]$ meaning all machines. w.l.o.g $A$ picked $m$ as the machine with the lowest amount. $OPT$ will choose to give 1 unit to $m$.\\
+In the next iteration $S_2=[1,m-1]$. w.l.o.g $m-1$ is the machine with the least load at the end of the iteration.\\
+We continue this for $m$ iterations.\\
+Now note that $OPT$ only put 1 unit of work in each machine ($m$ in the first iteration, $m-1$ in the second etc').\\
+On the other hand $A$ put at least $\frac{1}{m}$ on machine number 1 in the first iteration. And at least $\frac{1}{m-1}$ on machine 1 in the second iteration because we assume we removed the machine with the least load at the end of the iteration, and that means the rest of the load, in the worst case was balanced completely between all machines, meaning each machine got $\frac{1}{m-1}$, this is the worst case because the maximum load on the least loaded machine has to be $\frac{2-\frac{1}{m}}{m-1}$ since we got $2-\frac{1}{m}$ up untill now and its spread between $m-1$ machines, note that $\frac{2-\frac{1}{m}}{m-1}=\frac{1}{m} + \frac{1}{m-1}$.\\
+Now it will continue until the $m'$th iteration, in which we will get:
+\begin{gather*}
+    1 + m - \frac{1}{m} - (\frac{1}{m} + \frac{1}{m-1})-(\frac{1}{m}+\frac{1}{m-1}+\dots+\frac{1}{2})
+\end{gather*}
+Now note that $1 + m= 1 + \frac{m}{m} + \frac{m-1}{m-1}+\dots+\frac{2}{2}$.
+and we get 
+\begin{gather*}
+    1 + m - \frac{1}{m} - (\frac{1}{m} + \frac{1}{m-1})-(\frac{1}{m}+\frac{1}{m-1}+\dots+\frac{1}{2}) = \\
+    1 + \frac{m}{m} + \frac{m-1}{m-1}+\dots+\frac{2}{2}- (\frac{1}{m} + \frac{1}{m-1})-(\frac{1}{m}+\frac{1}{m-1}+\dots+\frac{1}{2})\\
+    \frac{m}{m} - \frac{m-1}{m} + \frac{m-1}{m-1} - \frac{m-2}{m-1}+\dots+\frac{2}{2}-\frac{1}{2} = \\
+    1 + \frac{1}{2} + \dots + \frac{1}{m}
+\end{gather*}
+as requested
+\end{document}
