@@ -2,3 +2,39 @@
 Show an $O(\log k)$ competitive algorithm for minimizing the maximum load over all machines.\\
 
 \subsection{Answer}
+w.l.o.g we assume that $\lambda = OPT$ is 1, otherwise we can normalize it.\\
+We will use the exact same algorithm as the one we saw in class where we need to minimize $a^{h_{j}+k_{ij}} - a^{h_{j}}$.\\
+As we saw in class from the definition of the algorithm and the lemma we saw then $a^{h_{j}+w_{ij}} - a^{h_{j}} \leq a^{l_{j^{*}}}(a-1)p_{ij}$.\\
+By summing both sides for all $i$ we get:
+\begin{gather*}
+    \sum_{i} a^{h_{j}+w_{ij}} - a^{h_{j}} \leq a^{l_{j^{*}}}(a-1)\sum_{i} p_{ij}
+\end{gather*}
+Now we replace the order of summation where $O$ is $OPT$:
+\begin{gather*}
+    \sum_{\ell=0}^{k-1} \sum_{j=\ell\cdot r + 1}^{(\ell+1)\cdot r} \sum_{i|A(i)=j} a^{h_{j}+w_{ij}} - a^{h_{j}} \leq 
+    (a-1) \sum_{\ell=0}^{k-1} \sum_{j=\ell\cdot r + 1}^{(\ell+1)\cdot r} a^{l_{j^{*}}} \sum_{i|O(i)=j} p_{ij}
+\end{gather*}
+Now we know that in the same group, all the jobs have almost the same load, so we can replace the sum of loads with the first load in the group + $r$.\\
+Now we get:\\
+\begin{gather*}
+    (a-1) \sum_{\ell=0}^{k-1} \sum_{j=\ell\cdot r + 1}^{(\ell+1)\cdot r} a^{l_{j^{*}}} \sum_{i|O(i)=j} p_{ij} \leq 
+    r\cdot(a-1) \sum_{\ell=0}^{k-1} a^{l_{\ell\cdot r + 1}}
+\end{gather*}
+and:
+\begin{gather*}
+    \sum_{\ell=0}^{k-1} \sum_{j=\ell\cdot r + 1}^{(\ell+1)\cdot r} \sum_{i|A(i)=j} a^{h_{j}+w_{ij}} - a^{h_{j}} =
+    \sum_{\ell=0}^{k-1} \sum_{j=\ell\cdot r + 1}^{(\ell+1)\cdot r} a^{l_j} - a^{0} \geq 
+    \sum_{\ell=0}^{k-1} r\cdot(\max(a^{l_{j}}) - r) - rk = \\ =
+    \sum_{\ell=0}^{k-1} r\cdot(\max(a^{l_{j}})) - 2rk
+\end{gather*}
+And now:
+\begin{gather*}
+    \sum_{\ell=0}^{k-1} r\cdot(\max(a^{l_{j}})) - 2rk \leq r\cdot(a-1) \sum_{\ell=0}^{k-1} a^{l_{\ell\cdot r + 1}} \iff \\
+    \sum_{\ell=0}^{k-1} (\max(a^{l_{j}})) - 2k \leq (a-1) \sum_{\ell=0}^{k-1} a^{l_{\ell\cdot r + 1}} \iff\\
+    \sum_{\ell=0}^{k-1} (\max(a^{l_{j}}))\leq \frac{2k}{2-a}
+\end{gather*}
+And now taking taking the max of the left $\max(\max(a^{l_{ij}}))\leq \frac{2k}{2-a}$ and then taking log we get:
+\begin{gather*}
+    \log(\max(\max(a^{l_{ij}})))\leq \log\left(\frac{2k}{2-a}\right) = O(\log(k))
+\end{gather*}
+As requested.
