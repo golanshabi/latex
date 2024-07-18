@@ -1,0 +1,11 @@
+\subsection{Question}
+Show an $O(\log k)$ competitive algorithm where the goal is to minimize the maximum group volume
+(group volume is the total load of machines in a group).
+
+\subsection{Answer}
+w.l.o.g assume that $\lambda = OPT$ is 1, otherwise we can normalize it.\\
+Note that it doesn't matter to which machine we put in a group, so we will use a 
+more general notion of putting in a group and not in a specific machine.\\
+We will use the algorithm $A$ which operates in the following way: \\
+It will choose the group $j$ for job $i$ based on which minimizes group the following $ a^{v_j + w_{ij}} - a^{v_j} $, where $v_j$ is the current volume of group $j$ and $a$ is the same as we defined in class.\\
+Note that since it doesn't matter which machine we choose, this problem is equivalent to the one we saw in class. And we know that the solution is $O(\log k)$ competitive. as requested.\\
