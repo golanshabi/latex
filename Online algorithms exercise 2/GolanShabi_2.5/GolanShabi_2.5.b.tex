@@ -3,7 +3,7 @@ Show an $O(\log k)$ competitive algorithm for minimizing the maximum load over a
 
 \subsection{Answer}
 w.l.o.g we assume that $\lambda = OPT$ is 1, otherwise we can normalize it.\\
-We will use the exact same algorithm as the one we saw in class where we need to minimize $a^{h_{j}+k_{ij}} - a^{h_{j}}$.\\
+We will use the exact same algorithm as the one we saw in class where we need to minimize $a^{h_{j}+k_{ij}} - a^{h_{j}}$ but we will ignore tasks greater than $\lambda$, we saw it could be done by assuming $\lambda$ and repeating every time while still getting the same big $O$.\\
 As we saw in class from the definition of the algorithm and the lemma we saw then $a^{h_{j}+w_{ij}} - a^{h_{j}} \leq a^{l_{j^{*}}}(a-1)p_{ij}$.\\
 By summing both sides for all $i$ we get:
 \begin{gather*}
