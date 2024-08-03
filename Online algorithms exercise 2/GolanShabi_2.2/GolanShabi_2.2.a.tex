@@ -1,0 +1,23 @@
+\subsection{Question}
+Design a constant competitive algorithm.
+
+\subsection{Answer}
+We will assign the task to We will assign the task to: $\left\{\max j|l_{j} + w_i \leq  2\lambda\right\}$. If there's no such $j$ the algorithm will fail.\\
+First, lets show that if $\lambda\geq OPT$ then this algorithm won't fail.\\
+Assume we failed on some task $i$ where we get $[1\dots k]$. Since each task takes the same time on different machines then we know that $ w_{i} \leq \lambda $ which means $l_{k}>\lambda$. Note that not all machines can be loaded with $\geq \lambda$  because of the conservation of volume and because we always choose the largest index possible.\\
+Define $r$ as the machine with the lowest index whose load is at least $\lambda$.\\
+According to the conservation of volume, there exists at least 1 task $\ell$ for which the algorithm assigns to machine $j$ such that $0 \leq j \leq r-1$ and OPT assigns to a machine $\geq r$. In particular $w_{\ell} \leq \lambda$ and $l_r + w_\ell \leq \lambda + \lambda$. Hence, we should have assigned task $k$ (whose weight is $w_k$) to a machine $\geq r$.\\
+Now we need to find $\lambda$. we do the following:
+\begin{enumerate}
+    \item $\lambda \leftarrow \lambda_{0} \leftarrow w_{1}$.
+    \item run $A(\lambda)$.
+    \item if failed, $\lambda \leftarrow 2\lambda$. Go back to step 2.
+\end{enumerate}
+
+From the proof above, once $\lambda \geq OPT$ we will stop.\\
+In each iteration of the algorithm with a new $\lambda$ it continues running as though there. is no load on the machines. That is because the algorithm assumes empty load on the machines. Otherwise the algorithm will not work.\\
+Note that $\lambda_{final} \leq 2OPT$ so the load will be: 
+\begin{gather*}
+2\lambda_0 + 2(2\lambda_0) + 2(4\lambda_0) + \dots + 2\lambda_{final} \leq 8OPT
+\end{gather*}
+As requested.

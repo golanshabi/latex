@@ -1,0 +1,26 @@
+\subsection{Question}
+Show a lower bound of $2-O(\frac{1}{m})$ for randomized algorithms, for any $m$, using only unit jobs.
+
+\subsection{Answer}
+We will do the Following:\\
+In the first step we will add $m$ jobs of 1 unit with $k_{1}=m$.\\
+On the second step we will add $m$ jobs of 1 unit with $k_{2}=m-1$.\\
+On the $i$'th step we will add $m$ jobs of 1 unit with $k_{i}=m-i+1$.\\
+Now lets see what happens for some $c$. On the first step machine number $m$ has at most (worst case) $2-\frac{c}{m}$ work, because otherwise $OPT$ can 1 job to each machine in order to keep the competitive target. If there is more than $2-\frac{c}{m}$ then from conservation of volume there will be more work on the left part which is ok.\\
+On the second step machine number $m-1$ has at most (worst case) $2\cdot(2-\frac{c}{m})$ work, because otherwise $OPT$ can put 1 job in every machine and have $2$ work.\\
+On the $i$'th step machine number $m-i+1$ has at most (worst case) $i\cdot(2-\frac{c}{m})$ work, because otherwise $OPT$ can put $i$ jobs in every machine and have exactly $i$ work.\\
+In every step our $OPT'$ will put everything on the last machine to acheive this in the final iteration.\\
+Now at worst case the amount of work ON has is on the first machine:
+\begin{gather*}
+m^2 - \left( 2-\frac{c}{m} \right) - \left( 2 \cdot \left(2-\frac{c}{m}\right) \right) - \dots - \left( (m-1)\cdot\left(2-\frac{c}{m}\right) \right)\\
+= m^2 - \sum_{i=1}^{m-1}i\cdot\left(2-\frac{c}{m}\right)\\
+= m^2-\left(2-\frac{c}{m}\right)\left(\sum_{i=1}^{m-1}i\right)\\
+= m^2- \left(2-\frac{c}{m}\right) \frac{m(m-1)}{2}\\
+= m^2- \left(2-\frac{c}{m}\right) \frac{m^2 - m}{2}\\
+= m^2- \left(m^2 - m-\frac{c}{m}\frac{m^2 - m}{2}\right) \\
+= m^2 - m^2 + m + \frac{c}{m}\frac{m^2 - m}{2} \\
+= m + \frac{c}{m}\frac{m^2 - m}{2} \\
+= m+\frac{c\cdot m}{2} - \frac{c}{2}
+\end{gather*}
+And now we get that $\frac{m+\frac{c\cdot m}{2} - \frac{c}{2}}{m} = 1+\frac{c}{2} - \frac{c}{2m}$. \\
+Now we can choose $c=2$ and we're done since in the worst case the load over machine $i$ is $i(2-\frac{2}{m})$ in $A$ while still being at least $2m-1$ in the worst of them (meaning the one left over) with $OPT'$ being $m$.

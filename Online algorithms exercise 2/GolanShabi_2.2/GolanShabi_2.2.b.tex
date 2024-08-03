@@ -1,0 +1,10 @@
+\subsection{Question}
+Show a lower bound of 2 for deterministic algorithms, for any $m \geq 6$, using only unit jobs.
+
+\subsection{Answer}
+We will use with $m=6$ and start with $6$ jobs of $1$ unit with $k_{1}=6$ .\\
+There are 2 options in this case, if $A$ assigns 2 jobs to one single machine then were done, since one of the machines will have 2 work, while we can split the work among 6 machines. So the only case thats left is if $A$ assigns 1 job to each machine. In this case we assign 2 jobs to machines 4,5,6. So our current state is $\left[0,0,0,2,2,2\right]$ while $A$'s state is $\left[1,1,1,1,1,1\right]$.\\
+Now we will add 6 more jobs of 1 unit to with $k_2=3$.\\
+If $A$ assigns more than 2 jobs to one machine then we are done, since we can assign 2 jobs to each machine and the maximum load will be 2 for us and 4 for $A$. So the only option $A$ has is to assign 2 tasks to each machine 1..3 on the other hand we assign 3 to machine 2 and 3 to machine 3. So our current state is $\left[0,3,3,2,2,2\right]$ while $A$'s state is $\left[3,3,3,1,1,1\right]$.\\
+Now in the last case we will add 3 tasks with $k_3=1$ meaning it must be assigned to the first machine. our state is $\left[3,3,3,2,2,2\right]$ while $A$'s state is $\left[6,3,3,1,1,1\right]$.\\
+Meaning we got that $OPT$ is at least 3 while $A$ is at least 6. as requested,\\ 
