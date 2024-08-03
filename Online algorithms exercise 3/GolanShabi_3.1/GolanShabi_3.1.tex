@@ -1,0 +1,60 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+\setlength{\parindent}{0pt}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Online Algorithms Exercise 1}
+\author{Golan Shabi 208944355}
+
+\begin{document}
+
+\maketitle
+\subsection*{Question}
+We are given a connected graph $G=(V, E)$. All edges have unit capacity. At step $i$ we receive a request to allocate a bandwidth $p_i$ on a specific path $Q_i$. If we allocate the bandwidth on the path we receive benefit of $b_i$ otherwise, we receive no benefit. Also for some known value $\mu $ and for all $i$ $1 \leq \frac{b_i}{p_i} \leq  \mu$ and $p_i \leq  \frac{1}{log(2|V|\mu+2)}$. Our goal is to maximize the total benefit while maintaining the capacity constraints. Design an $O(log(|V|\mu))$ competitive algorithm.
+
+\subsection*{Answer}
+We will describe the following algorithm:\\
+Let $X_e$ be the weight on an edge defined by: $X_e=(2\cdot|V|\mu + 2)^{l_e} - 1$. and service a request only if $ \sum_{e\in Q_i} X_e \leq |V| \frac{b_i}{p_i}$ \\
+
+\subsubsection*{Feasability}
+
+overflow will only happen if $l_e \geq 1-\frac{1}{log(2|V|\mu+2)}$ as we assumed that $p_e \leq  \frac{1}{log(2|V|\mu+2)}$. If that's the case then $X_e > (2\cdot|V|\mu + 2)^{1-\frac{1}{log(2|V|\mu+2)}} - 1 = \frac{2\cdot|V|\mu + 2}{2} - 1 = |V|\mu \geq |V|\frac{b_i}{p_i}$ which would imply our algorithm won't use it.\\
+
+\subsubsection*{Competitiveness}
+First of all similarly to the first lemma in class:
+\begin{gather*}
+|V|\frac{b_i}{p_i} \leq \sum_{e\in Q_i}X_e
+\Rightarrow p_i|V|\frac{b_i}{p_i} \leq p_i \sum_{e\in Q_i}X_e
+\Rightarrow |V|\sum_{i\in RA}b_i \leq  \sum_{i\in RA} p_i \sum_{e\in Q_i} X_e
+\end{gather*}
+And like in class we know that $\sum_{i\in RA} p_i \sum_{e\in Q_i} X_e \leq \sum_{e\in E}X_e$.\\
+Now for the second lemma in class:
+\begin{gather*}
+\sum_{e\in Q_i}\Delta X_e \leq  \sum_{e\in Q_i} (2|V|\mu + 2)^{l_e + p_i} - 1 -(2|V|\mu + 2)^{l_e} + 1 =
+\sum_{e\in Q_i}(2|V|\mu + 2)^{l_e}[(2|V|\mu + 2)^{p_i} - 1] \\
+= \sum_{e\in Q_i}(2|V|\mu + 2)^{l_e}\left[2^{\log(2|V|\mu + 2) \cdot p_i} - 1\right] \leq 
+\sum_{e\in Q_i}(2|V|\mu + 2)^{l_e}\log(2|V|\mu + 2) \cdot p_i \\
+= \log(2|V|\mu + 2) \cdot p_i \sum_{e\in Q_i}(2|V|\mu + 2)^{l_e} - 1 + 1
+= \log(2|V|\mu + 2) \cdot p_i (|V|\frac{b_i}{p_i} + |V|\cdot \frac{b_i}{p_i}) \\
+\leq 2\log(2|V|\mu + 2) \cdot|V|\cdot b_i
+\end{gather*}
+And now:
+\begin{gather*}
+\sum_{i\in OPT}b_i \leq \sum_{i\in A}b_i + \sum_{i\in RA}b_i \leq
+\sum_{i\in A}b_i + \frac{1}{|V|} \sum_{e\in E} X_e \leq 
+\sum_{i\in A}b_i + \frac{1}{|V|} 2\log(2|V|\mu + 2) \cdot|V| \sum_{i\in A} b_i \\
+= \sum_{i\in A}b_i + 2\log(2|V|\mu + 2) \sum_{i\in A} b_i
+= (1 + 2\log(2|V|\mu + 2)) \sum_{i\in A} b_i
+\end{gather*}
+Implying the algorithm is $O(\log(|V|\mu))$ competitive as requested.
+\end{document}

@@ -1,0 +1,18 @@
+\subsection*{Question}
+Design a deterministic preemptive algorithm which is $O(\log n)$ competitive.
+
+\subsection*{Answer}
+We will use the same algorithm as in class. meaning the following:\\
+Accept request A if:
+\begin{itemize}
+    \item A is over a vacant space
+    \item A is contained by another
+    \item A overlaps with another that is at least twice its size
+\end{itemize}
+Otherwise we reject A.\\
+We will denote $k^i_j$ as the $j$'th node of the $i$'th path and $r=k_0^0$ as root.\\
+The proof will be similar to the one we saw in class. We will start by proving lemma 1 from class in this case (note that here distance is the amount of nodes in the shortest path between them).\\
+Lemma 1 is exactly the same as in class, since preempting requires being half the distance, so at worst case the distance will be $\left|\frac{|P|}{2}\right|+\left|\frac{|P|}{4}\right|+\dots \leq |P|$.\\
+For lemma 2. Assume we have some path $R$ and its in the tree of request $A$. Naturally if $r\in R\cap A$ or $r\notin R\cup A$ then we're done since its the same as the original problem. But note even if $r\in R$ and $r\notin A$ since the request that preempted $R$ would be of size at most $2|R|$ and then we get the sum $2|R| + \frac{2|R|}{2} + \frac{2|R|}{4}\dots\leq 4|R|$.\\
+Now we have lemma 3. Now with the 2 Lemmas the proof is similar, but we need to note a significant difference between them, in the original proof we assumed that only 2 paths ($L$ in class) could be rejected (or preempted) by $A$, in this case this changes to 4 paths that could be rejected or preempted since if $r\in A$ then it could end up happening to at most 4 paths. Note that while technically this should be $k$ paths (since it could happen for every path from $r$) this is not true in this case since accepting $L_3, L_4$ would also block those same paths causing them to be rejected because in the process we will have to choose at least 2 paths that pass through the root to both lines of the star occupied by $A$ resulting in at most $4\cdot 24 = 96$ lost paths per $i$.\\
+This implies that we are at most $96\cdot\log (2n)$ competitive as the longest path here is $2n$ unlike in the original problem. which is $O(\log n)$ as requested.

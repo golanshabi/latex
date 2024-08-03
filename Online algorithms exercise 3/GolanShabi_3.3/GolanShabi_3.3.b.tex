@@ -1,0 +1,14 @@
+\subsection*{Question}
+Show a lower bound of $4 - \epsilon$ for any $\epsilon > 0$.
+
+\subsection*{Answer}
+Given some online algorithm $A$ we will do the following.\\
+At time 0 we will add a request of len $x_1=1$.\\
+At time $1-\epsilon$ we will add a request of len $x_2=x$ such that $A$ will preempt the first request and $x_2$ is the inf of all requests that will cause A to preempt, moreover we will send another request of len $x_2$ at time $1$. Note that $A$ has no reason to switch.\\
+we will continue like this so at iteration $n+1$ we will send a request at time $ \sum_{i=1}^{n} x_i - \epsilon = \sum_{i=1}^{n} x_i - n\epsilon$ a request $x_{n+1}$ s.t $A$ will preempt the previous request (and its inf). and we'll send the same len request (which $A$ has no reason to take) at time $\sum_{i=1}^{n} x_i - n\epsilon + \epsilon$.\\
+Now $OPT$ can reach at least $s_{n+1} - \epsilon = \sum_{i=1}^{n} x_i$ by always taking the second request in each iteration (except the first) and by having the last iteration be $x_{n+1} - \epsilon$ while $A$ will always take the last request which is $x_n$ (since as we said $A$ will not preempt).\\
+and now:
+\begin{gather*}
+    \frac{s_{n+1} - \epsilon}{x_n}\geq \frac{s_{n+1}}{x_n} - \epsilon \geq 4 - 2\epsilon
+\end{gather*}
+For some arbitrary $\epsilon$ we can get that $A$ is at least $4-\epsilon$ competitive for all $\epsilon > 0$ meaning its at most 4 competitive as requested.

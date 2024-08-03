@@ -1,0 +1,17 @@
+\subsection*{Question}
+Design a 4 competitive algorithm for the problem.
+
+\subsection*{Answer}
+We will use a similar algorithm to the one we saw in class. Meaning we define $g$ and then for any request $R$ we will accept if its $g$ times longer than all its intersection (note that in this algorithms case we only intersect with at most 1 request).\\
+Now note that worst case this time is different, since we can only send 1 request every time. We start with $\frac{x}{g^{i}}$ and then the next with $\frac{x}{g^{i-1}}$ which replaces it until we reach a request $A$ of size $x$. In this case our algorithm loses at most $ \sum_{j=1}^{i} \frac{x}{g^j} \leq \frac{x}{g-1}$. Now on the other side the worst case is that we get $gx$ (up to $\epsilon$) and we'll lose another $gx$ in this case.\\
+In this case $OPT$ has at least $gx + \frac{x}{g-1}$. Now we derivate this function to get the minimum point:
+\begin{gather*}
+    f(g) = gx + \frac{x}{g-1} \Rightarrow\\
+    f'(g) = x - \frac{x}{(g-1)^2} = 0 \Rightarrow\\
+    1 = \frac{1}{(g-1)^2} \Rightarrow\\
+    (g-1)^2 = 1 \Rightarrow\\
+    g^2-2g = 0 \Rightarrow\\
+    g(g - 2) =  \Rightarrow\\
+    g \in \{0,2\}
+\end{gather*}
+And since $g > 1$ we choose g=2 and we get $f(g)$ is minimal at $g=2$ and we get that $f(g) = 2x + \frac{x}{2-1} = 3x$, now in the worst case $OPT$ also got $x$ between them so we get that $OPT$ can reach up to $4x$ while our algorithm is $x$ and we get that our algorithm is 4 competitive as requested.
