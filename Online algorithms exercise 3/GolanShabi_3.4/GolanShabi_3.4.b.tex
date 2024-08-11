@@ -1,0 +1,30 @@
+\subsection*{Question}
+Modify the algorithm and the proof if all packets are of sizes of at least $k$ and at most $2k$.
+
+\subsection*{Answer}
+We will use the same algorithm as last section.\\
+Let there be some $i\in RA$ that $OPT$ executes and were at time $i$.\\
+there are a few options since 2-MVF doesn't run it:
+\begin{enumerate}
+    \item 2-MVF already executed it, but that implies $i\notin RA$.
+    \item $i$ is not alive, but then OPT wouldn't had ran it.
+    \item 2-MVF executes in time $t$ a job $j$ with a value at least $\frac{v_i}{2}$.
+    \item 2-MVF preempted that request. 
+\end{enumerate}
+
+if its option 3 then $\frac{v_i}{2} \leq v_j\Rightarrow v_i \leq 2v_j$. Note that at the worst case during this time, OPT can run 2 requests, so unlike the lecture where we had a 1 to 1 mapping, here we have a 2 to 1 mapping (since it can happen at most twice during the time 2-MVF request run time) meaning the real inequality is $\frac{v_{i_1}}{2} \leq v_j\Rightarrow v_{i_1} \leq 2v_j$ and $\frac{v_{i_2}}{2} \leq v_j\Rightarrow v_{i_2} \leq 2v_j$ where $v_{i_1}$ and $v_{i_2}$ are the jobs that run during the time $v_j$ ran, and now we get that $v_{i_1}+v_{i_2} \leq 2\cdot2v_j$.\\
+Otherwise, we need to see what is the worst case in preemprtions. At the worst case g-MVF will preempt $n$ jobs receiving at least $2^n\cdot v_\ell$ (where $\ell$ is the one that started the preemptions).\\
+On the other hand, OPT will gain at most $2\cdot\left(2v_\ell + 2^2\cdot v_\ell +\dots+2^{n+1}v_\ell\right)$ if it runs all the jobs. Note that this is true because during $n$ preemptions, the time passed is at most $2k\cdot n$ and during this time OPT can run at most $2n$ tasks, which are at most $2$ times the size of the job 2-MVF is running at that moment.\\
+Now:
+\begin{gather*}
+    2\left(\frac{2v_\ell + 2^2\cdot v_\ell +\dots+2^{n+1}v_\ell}{v_\ell 2^n}\right) =
+    2\left(2 + 1 + \dots +\frac{1}{2^{n-1}}\right)
+\end{gather*}
+
+Now we know that the sum is at most 8.\\
+Now we get that $ \sum_{i\in RA} v_i \leq 2\cdot $2-MVF$ = 2 \sum_{i\in A}v_i$.\\
+From this we know that:
+\begin{gather*}
+    \sum_{i\in OPT} v_i \leq \sum_{i\in RA} v_i + \sum_{i\in A} v_i \leq 9\sum_{i\in A} v_i
+\end{gather*}
+as requested.

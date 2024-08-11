@@ -1,0 +1,8 @@
+\subsection*{Question}
+Show a lower bound of $2 - \frac{1}{m}$ for the competitive ratio of any deterministic algorithm.
+\subsection*{Answer}
+We will use the following input.\\
+Given $m$ clients, we will put $1$ job in each client.\\
+Now we will do this iteratively, w.l.o.g assume that at time $i$ $A$ proccesses job $i$, since this is according to order we can assume that $i+1$ was not processed by $A$ yet, so we put a job in $i+1$.\\
+Since every time we put a job somewhere $A$ hasn't processed $A$ ends up processing only $m$ jobs.\\
+On the other hand $OPT'$ can process the $i+1$ job at time $i$ for the first $m$ jobs, and then there are $m-1$ jobs left, and $OPT'$ can process these $m-1$ jobs and end up processing $2m-1$ jobs. We get that $\frac{2m-1}{m} = 2-\frac{1}{m}$ as requested.

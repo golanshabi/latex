@@ -1,0 +1,34 @@
+\documentclass{article}
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+\setlength{\parindent}{0pt}
+% Set page size and margins
+% Replace `letterpaper' with `a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pictures/} }
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Online Algorithms Exercise 1}
+\author{Golan Shabi 208944355}
+
+\begin{document}
+
+\maketitle
+\section*{Question}
+Suppose we are given one machine and $m$ clients. At any time each client can hold at most one job. All jobs have unit size and unit value. The machine can process a job from one of the clients at any time step. If there are no jobs the machine is idle. At each time step a job may be created at each of the clients. A client may keep the new job if it does not hold a previous job. Otherwise the new job is discarded. We assume that at each time step, jobs are first created at clients and then the machine decides to process one of the client jobs. The goal is to maximize the number of processed jobs.
+\input{GolanShabi_3.5.a.tex}
+\pagebreak
+
+\input{GolanShabi_3.5.b.tex}
+\pagebreak
+
+\input{GolanShabi_3.5.c.tex}
+\pagebreak
+
+\end{document}

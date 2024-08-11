@@ -10,6 +10,8 @@
 
 % Useful packages
 \usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{ {./pictures/} }
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
 \title{Online Algorithms Exercise 1}
@@ -18,10 +20,15 @@
 \begin{document}
 
 \maketitle
-\subsection*{Question}
-Suppose we are given one machine and a set of jobs that arrive over time. The machine can process one job at a time and may preempt jobs. The duration of a job is known at its release time and the benefit of a job is equal to its duration. In order to get the benefit of a job it must be processed immediately at its release time and should not be preempted until its completion.
-\section*{Part a}
+\section*{Question}
+Consider scheduling of packets problem over time. Request $i$ arrives at time $a_i$ has deadline $d_i$, size $w_i$ slots (all numbers are integers) and a value $v_i$. To get the value $v_i$ for the packet $i$ one need to transmit the packet on $w_i$ consecutive slots before the deadline. A packet can be preempted (at integer times) but once preempted it is lost for ever (we cannot continue or restart the transmission).\section*{Part a}
 \input{GolanShabi_3.4.a.tex}
+\pagebreak
+
+\input{GolanShabi_3.4.b.tex}
+\pagebreak
+
+\input{GolanShabi_3.4.c.tex}
 \pagebreak
 
 \end{document}

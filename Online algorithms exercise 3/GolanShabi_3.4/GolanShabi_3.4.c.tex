@@ -1,0 +1,5 @@
+\subsection*{Question}
+Design $O(\log k)$ randomized competitive algorithm if $1 \leq  w_i \leq  k$ for all $i$.
+
+\subsection*{Answer}
+We will use CRS algorithm with the algorithm from last section, meaning we will choose a random $i$ and run the algorithm on $[2^{i-1},2^i)$. Now for a given $i$ we know the algorithm is 9 competitive implying that the random algorithm is $9\log k$-competitive, meaning we get a $O(\log k)$ as thats the amount of intervals as requested.

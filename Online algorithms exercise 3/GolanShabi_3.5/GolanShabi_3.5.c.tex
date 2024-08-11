@@ -1,0 +1,7 @@
+\subsection*{Question}
+Consider the case where the jobs have values between $1$ and $\alpha$ for some known $\alpha > 1$. The goal is to maximize the total value of processed jobs. A client must discard a new job if it holds a previous job, but may also discard a new job even if it does not hold a previous job. Note that if a client decides to keep a job upon its creation, it will have to discard all newer jobs until the execution of that job (even if newer jobs have higher values). Design an $O(\log \alpha)$ randomized competitive algorithm for the decisions of the clients and the machine.
+\subsection*{Answer}
+First of all, we will look at the case when $k \leq \alpha \leq 2k$. Note that in this case, using the same proof as question 1, our algorithm will be at least 4 competitive, since at worst case we do half the jobs for half the payout, meaning we receive $\frac{1}{4}$ of the OPT.\\
+Now we know that the algorithm from a is at least 4-competitive.\\
+Now we will use CRS with this algorithm. Meaning we choose at random a $0 \leq i \leq \log \alpha$ and run the algorithm only on jobs with value between $2^i$ and $2^{i+1}$.\\
+Now since the deterministic algorithm is 4-competitive, we know that this alogrithm is $4\log \alpha$ competitive which is $O(\log \alpha)$ as requested.

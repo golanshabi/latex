@@ -1,0 +1,32 @@
+\subsection*{Question}
+Design a constant competitive preemptive algorithm if $w_i = k$ for all $i$.
+
+\subsection*{Answer}
+We will use the following algorithm.\\
+g-MVF defined as following: = Max Value First algorithm which executes the job with the maximum value among the living jobs but preempts job $i$ for job $j$ only if $v_i < g\cdot v_j$, meaning we only preempt to gain at least $g$ times as much as we lose.\\
+We will choose $g$ and prove that $ \sum_{i\in RA} v_i \leq c\cdot $g-MVF$ = c\cdot\sum_{i\in A}v_i$ for some constant $c$.\\
+Let there be some $i\in RA$ that $OPT$ executes and were at time $i$.\\
+there are a few options since g-MVF doesn't run it:
+\begin{enumerate}
+    \item g-MVF already executed it, but that implies $i\notin RA$.
+    \item $i$ is not alive, but then OPT wouldn't had ran it.
+    \item g-MVF executes in time $t$ a job $j$ with a value at least $\frac{v_i}{g}$.
+    \item g-MVF preempted that request. 
+\end{enumerate}
+
+if its option 3 then $\frac{v_i}{g} \leq v_j\Rightarrow v_i \leq gv_j$.\\
+Otherwise, we need to see what is the worst case in preemprtions. At the worst case g-MVF will preempt $n$ jobs receiving at least $g^n\cdot v_\ell$ (where $\ell$ is the one that started the preemptions).\\
+On the other hand, OPT will gain at most $gv_\ell + g^2\cdot v_\ell +\dots+g^{n+1}v_\ell$ if it runs all the jobs. Note that this is true because during $n$ preemptions, the time passed is at most $k\cdot n$ and during this time OPT can run at most $n$ tasks, which are at most $g$ times the size of the job g-MVF is running.\\
+Now:
+\begin{gather*}
+    \frac{gv_\ell + g^2\cdot v_\ell +\dots+g^{n+1}v_\ell}{v_\ell g^n} =
+    g + 1 + \dots +\frac{1}{g^{n-1}}
+\end{gather*}
+
+Using $g=2$ we know that the sum is at most 4.\\
+Now we get that $ \sum_{i\in RA} v_i \leq 2\cdot $g-MVF$ = 2 \sum_{i\in A}v_i$.\\
+From this we know that:
+\begin{gather*}
+    \sum_{i\in OPT} v_i \leq \sum_{i\in RA} v_i + \sum_{i\in A} v_i \leq 5\sum_{i\in A} v_i
+\end{gather*}
+as requested.

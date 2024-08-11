@@ -1,0 +1,9 @@
+\subsection*{Question}
+Show that any on-line algorithm that processes any job if exists, and keeps new jobs at the clients if possible is 2-competitive. Hint: partition the time line into segments where each consists of maximum consecutive times steps in which the on-line algorithm processed jobs. Transform the sequence (while possibly improving the optimum) to a new sequence such that before the beginning of a new segment the optimum does not process a job.
+\subsection*{Answer}
+We will divide into sections like the hint.\\
+Now for each section we denote by $\ell$ the amount of different clients receiving a job in that segment.\\
+Now we will define a new segment by adding $\ell$ steps at the end of the segment where no new jobs are created, note that $A$ doesn't change by definition and $OPT$ can only improve.\\
+Now we know that $OPT$ can do at most $\ell + n$ in that segment while $A$ does $n$ in that segment.\\
+Now we know that $n\geq \ell$ by definition so we get that $2n \geq \ell + n$ and we get that $A$ is 2-competitive over that segment.\\
+Since the new segments are completely disjoint (meaning neither $A$ nor $OPT$ process anything between them) we get that $A$ is 2-competitive over the whole time line as requested.
